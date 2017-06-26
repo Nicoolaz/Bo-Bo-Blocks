@@ -1,0 +1,1 @@
+Assets/myGame/Scripts/Manager/BlocksPool.cs.baiduyun.uploading.cfg

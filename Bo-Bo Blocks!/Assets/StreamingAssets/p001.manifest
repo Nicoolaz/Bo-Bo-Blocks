@@ -1,0 +1,92 @@
+ManifestFileVersion: 0
+CRC: 4051732200
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: df5bf95786f97adb6c7f2848339f5f5b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a4f1c9a8b4dd34db231ed11e5dc1869d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 89
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 86f71a77f36960e468eb2b394ebc17c4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e95c4c5adff4dd74abda54d10cb35bc4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 29975aea7622ccc4384c2fa761628bf4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 021ad5102035a2440b680aaa82fdb5a9, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/myGame/Prefabs/SubBlock (2).prefab
+- Assets/myGame/Resources/Fast.png
+- Assets/myGame/Shaders/Blocks.shader
+- Assets/myGame/Resources/Touched.anim
+- Assets/myGame/Resources/Arrow.png
+- Assets/myGame/Materials/Platform.mat
+- Assets/myGame/Prefabs/Block02.prefab
+- Assets/myGame/Resources/Button 1.controller
+- Assets/myGame/Resources/RoZ.controller
+- Assets/myGame/Resources/Fast.controller
+- Assets/myGame/Prefabs/GameSceneCanvas.prefab
+- Assets/myGame/Shaders/LowPolyWater.shader
+- Assets/myGame/Resources/RoX.controller
+- Assets/myGame/Resources/Button (3).controller
+- Assets/myGame/Resources/Button.controller
+- Assets/myGame/Prefabs/Block01.prefab
+- Assets/myGame/Materials/LowPolyWater.mat
+- Assets/myGame/Resources/Up copy.png
+- Assets/myGame/Prefabs/Walls.prefab
+- Assets/myGame/Resources/Up copy 3.png
+- Assets/myGame/Resources/Button (2).controller
+- Assets/myGame/Resources/Up copy 2.png
+- Assets/myGame/Resources/Up copy 4.png
+- Assets/myGame/Resources/Button (1).controller
+- Assets/myGame/Materials/Blocks.mat
+- Assets/myGame/Resources/RoY.controller
+- Assets/myGame/Prefabs/Platform.prefab
+Dependencies: []
