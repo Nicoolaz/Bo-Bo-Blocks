@@ -24,7 +24,7 @@ public class GameSceneUICtrl : MonoBehaviour {
     void OnEnable()
     {
 
-        Debug.Log(GameMgr.Instance);
+        //Debug.Log(GameMgr.Instance);
         GameMgr.Instance.eventMaster.eventScoreChanged += UpdateScore;
         GameMgr.Instance.eventMaster.eventGameOver += ToggleGameOverPanel;
         GameMgr.Instance.eventMaster.eventGameRestart += ToggleGamePausePanel;

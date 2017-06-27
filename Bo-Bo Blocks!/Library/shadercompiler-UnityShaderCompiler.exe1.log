@@ -1,6 +1,5 @@
 Base path: C:/Program Files/Unity/Editor/Data
 Cmd: getPlatforms
-Cmd: compileSnippet
-  error: 2 plat 9 at (166): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
-Platform defines: UNITY_NO_DXT5nm UNITY_NO_RGBM UNITY_NO_SCREENSPACE_SHADOWS UNITY_NO_LINEAR_COLORSPACE UNITY_ENABLE_REFLECTION_BUFFERS UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_NO_FULL_STANDARD_SHADER UNITY_PBS_USE_BRDF3 SHADER_API_MOBILE UNITY_HARDWARE_TIER1
-  api=9 type=0 insize=7079 outsize=0 kw= pd=UNITY_NO_DXT5nm UNITY_NO_RGBM UNITY_NO_SCREENSPACE_SHADOWS UNITY_NO_LINEAR_COLORSPACE UNITY_ENABLE_REFLECTION_BUFFERS UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_NO_FULL_STANDARD_SHADER UNITY_PBS_USE_BRDF3 SHADER_API_MOBILE UNITY_HARDWARE_TIER1 ok=0
+Unhandled exception: Protocol error - failed to read correct magic number
+
+Quitting shader compiler process

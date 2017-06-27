@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2469899238
+CRC: 4223934086
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2abd5f765647785434b089c052ec6473
+    Hash: fdcf7a7d0815db49220d1ab4f3cee8c1
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 2a6b5909289dcffb460fa05fa388e541
+    Hash: b707dd2762e2a88c786dfe28ca87574d
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -24,6 +24,8 @@ ClassTypes:
 - Class: 43
   Script: {instanceID: 0}
 - Class: 48
+  Script: {instanceID: 0}
+- Class: 49
   Script: {instanceID: 0}
 - Class: 65
   Script: {instanceID: 0}
@@ -76,6 +78,7 @@ Assets:
 - Assets/myGame/Resources/Arrow.png
 - Assets/myGame/Materials/Platform.mat
 - Assets/myGame/Prefabs/Block02.prefab
+- Assets/myGame/Resources/DoubleCoins.png
 - Assets/myGame/Resources/Button 1.controller
 - Assets/myGame/Resources/RoZ.controller
 - Assets/myGame/Resources/Fast.controller
@@ -83,6 +86,9 @@ Assets:
 - Assets/myGame/Prefabs/GameSceneCanvas.prefab
 - Assets/myGame/Prefabs/Block04.prefab
 - Assets/myGame/Shaders/LowPolyWater.shader
+- Assets/myGame/CSVs/Item.csv
+- Assets/myGame/Resources/DoubleScore.png
+- Assets/myGame/Resources/ChoseBlock.png
 - Assets/myGame/Resources/RoX.controller
 - Assets/myGame/Resources/Button (3).controller
 - Assets/myGame/Resources/Button.controller

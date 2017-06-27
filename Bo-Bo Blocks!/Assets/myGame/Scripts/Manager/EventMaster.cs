@@ -28,15 +28,50 @@ public class EventMaster : MonoBehaviour {
     
     public event ActionEventHandle eventGameRestart;
 
+    public event ActionEventHandle eventPlayerDataChanged;
+
+    public event ActionEventHandle eventToggleShopCanvas;
+
     public delegate void BlockMoveEventHandle(Directions dir);
     public event BlockMoveEventHandle eventBlockMove;
 
     public delegate void BlockRotateEventHandle(RotateDir dir);
     public event BlockRotateEventHandle eventBlockRotate;
 
+    public delegate void PlayerItemChangeEventHandle(int id, int num);
+    public event PlayerItemChangeEventHandle eventPlayerItemChange;
+
+    public delegate void PlayerCoinsChangeEventHandle(int num);
+    public event PlayerCoinsChangeEventHandle eventPlayerCoinsChange;
+
     #endregion
 
     #region CallEventsFunction
+
+    public void CallEventToggleShopCanvas()
+    {
+        if (eventToggleShopCanvas != null)
+        {
+            eventToggleShopCanvas();
+        }
+    }
+
+    public void CallEventPlayerCoinsChange(int num)
+    {
+        if (eventPlayerCoinsChange != null)
+        {
+            eventPlayerCoinsChange(num);
+        }
+    }
+
+    public void CallEventPlayerItemChange(int id,int num)
+    {
+        if (eventPlayerItemChange != null)
+        {
+            eventPlayerItemChange(id, num);
+        }
+    }
+
     public void CallEventCheckForDelete()
     {
         if (eventCheckForDelete != null)
@@ -138,6 +173,14 @@ public class EventMaster : MonoBehaviour {
         if (eventChangeToGameStartScene != null)
         {
             eventChangeToGameStartScene();
+        }
+    }
+
+    public void CallEventPlayerDataChanged()
+    {
+        if (eventPlayerDataChanged != null)
+        {
+            eventPlayerDataChanged();
         }
     }
     #endregion

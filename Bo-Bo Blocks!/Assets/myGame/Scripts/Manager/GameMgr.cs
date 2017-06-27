@@ -17,25 +17,23 @@ public class GameMgr : MonoBehaviour {
         get;
         private set;
     }
-
     public GridMgr gridMgr
     {
         private set;
         get;
     }
-
     public EventMaster eventMaster
     {
         private set;
         get;
     }
-
     public ScoreMgr scoreMgr { private set; get; }
-
     public BlocksPool blocksPool { private set; get; }
+    public PlayerDataMgr playerMgr { private set; get; }
+    public CSVLoader csvLoader{ private set;get; }
 
-    public ItemMgr itemMgr { private set; get; }
     public bool isGameOver = false;
+
     void Awake()
     {
 
@@ -63,6 +61,7 @@ public class GameMgr : MonoBehaviour {
         eventMaster.eventBundleLoaded += InitialReferences;
         eventMaster.eventGameOver += GameOver;
     }
+
     void OnDisable()
     {
         if (eventMaster != null)
@@ -79,7 +78,9 @@ public class GameMgr : MonoBehaviour {
         gridMgr = gameObject.AddComponent<GridMgr>();
         blocksPool = gameObject.AddComponent<BlocksPool>();
         scoreMgr = gameObject.AddComponent<ScoreMgr>();
-        itemMgr = gameObject.AddComponent<ItemMgr>();
+        csvLoader = gameObject.AddComponent<CSVLoader>();
+        playerMgr = gameObject.AddComponent<PlayerDataMgr>();
+        
 
     }
 

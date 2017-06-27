@@ -12,25 +12,20 @@ public class BlocksPool : MonoBehaviour {
 
     void InitialReferences()
     {
-        AssetBundle ab = null;
         blocksDic.Clear();
-        if (GameMgr.Instance.bl._allAbs.ContainsKey("p001"))
+        int i = 1;
+        while (true)
         {
-            ab = GameMgr.Instance.bl._allAbs["p001"];
-        }
-        if (ab != null)
-        {
-            for (int i = 0; i < ab.LoadAllAssets().Length; ++i)
+            string name = string.Format("Block0{0}", i);
+            GameObject tempGo = GameMgr.Instance.bl.GetDataByName<GameObject>(name);
+            if (tempGo == null)
             {
-                if (!blocksDic.ContainsKey(ab.LoadAllAssets()[i].name))
-                {
-                    if (ab.LoadAllAssets()[i].name.Contains("Block"))
-                    {
-                        blocksDic.Add(ab.LoadAllAssets()[i].name, ab.LoadAllAssets()[i] as GameObject);
-                    }
-                }
+                break;
             }
+            blocksDic.Add(name, tempGo);
+            i++;
         }
+
     }
 
     public GameObject GetBlockByName(string name)

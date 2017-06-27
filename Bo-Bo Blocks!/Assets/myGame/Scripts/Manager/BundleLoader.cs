@@ -118,4 +118,17 @@ public class BundleLoader : MonoBehaviour
         GameMgr.Instance.eventMaster.CallEventBundleLoaded();
 
     }
+
+    public T GetDataByName<T>(string name) where T : class
+    {
+        AssetBundle myAB = _allAbs["p001"];
+        for(int i = 0; i < myAB.LoadAllAssets().Length; ++i)
+        {
+            if(myAB.LoadAllAssets()[i].name == name&&myAB.LoadAllAssets()[i] is T)
+            {
+                return myAB.LoadAllAssets()[i] as T;
+            }
+        }
+        return null;
+    }
 }

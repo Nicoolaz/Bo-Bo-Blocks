@@ -3,15 +3,16 @@ using System.Collections;
 
 public class UIMgrCtrl: MonoBehaviour {
     UIStateMachine uiStateMachine;
-
+    GameObject shopCanvas;
     void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("UICtrl").Length > 1)
         {
             Destroy(gameObject);
-        }
+        }        
         else
         {
+            shopCanvas = transform.Find("ShopCanvas").gameObject;
             uiStateMachine = new UIStateMachine();
             GameStartState gameStartState = new GameStartState(transform);
             uiStateMachine.AddState(gameStartState);
@@ -32,6 +33,7 @@ public class UIMgrCtrl: MonoBehaviour {
         GameMgr.Instance.eventMaster.eventGameStart += ChangeStateToGameScene;
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene += ChangeStateToGameStart;
         GameMgr.Instance.eventMaster.eventBundleLoaded += ChangeStateToGameStart;
+        GameMgr.Instance.eventMaster.eventToggleShopCanvas += ToggleShopPanel;
 
     }
 
@@ -40,6 +42,7 @@ public class UIMgrCtrl: MonoBehaviour {
         GameMgr.Instance.eventMaster.eventGameStart -= ChangeStateToGameScene;
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene -= ChangeStateToGameStart;
         GameMgr.Instance.eventMaster.eventBundleLoaded -= ChangeStateToGameStart;
+        GameMgr.Instance.eventMaster.eventToggleShopCanvas += ToggleShopPanel;
     }
     void ChangeStateToGameScene()
     {
@@ -53,5 +56,9 @@ public class UIMgrCtrl: MonoBehaviour {
     void ChangeStateToGameLoading()
     {
         uiStateMachine.ChangeState(typeof(GameLoadingState));
+    }
+    void ToggleShopPanel()
+    {
+        shopCanvas.SetActive(!shopCanvas.activeSelf);
     }
 }
