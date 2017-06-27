@@ -126,13 +126,13 @@ public class SubBlocks : MonoBehaviour {
             }
             else
             {
-                Debug.Log("ArrayOutOfRange");
+                //Debug.Log("ArrayOutOfRange");
                 downAble = 0;
             }
         }
         else
         {
-            Debug.Log("DictionaryContainsKey");
+            //Debug.Log("DictionaryContainsKey");
             downAble = 0;
         }
     }

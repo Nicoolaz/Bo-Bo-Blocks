@@ -107,7 +107,7 @@ public class GridMgr : MonoBehaviour {
         {
             return;
         }
-        Debug.Log("aa");
+        //Debug.Log("aa");
         UpdateDictionary();
         //UpdateGrid();
         layersForDelete.Clear();
@@ -210,7 +210,7 @@ public class GridMgr : MonoBehaviour {
                 stonesDic.Add(go.transform.position, temp);
             }
         }
-        Debug.Log("aa1");
+        //Debug.Log("aa1");
         UpdateGrid();
         GameMgr.Instance.eventMaster.CallEventCheckForDelete();
     }

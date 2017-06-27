@@ -33,6 +33,8 @@ public class GameMgr : MonoBehaviour {
     public ScoreMgr scoreMgr { private set; get; }
 
     public BlocksPool blocksPool { private set; get; }
+
+    public ItemMgr itemMgr { private set; get; }
     public bool isGameOver = false;
     void Awake()
     {
@@ -50,7 +52,7 @@ public class GameMgr : MonoBehaviour {
 
     void OnEnable()
     {
-        Debug.Log("1");
+       // Debug.Log("1");
         
         bl = gameObject.AddComponent<BundleLoader>();
         if (!bl._isAllFull)
@@ -77,6 +79,7 @@ public class GameMgr : MonoBehaviour {
         gridMgr = gameObject.AddComponent<GridMgr>();
         blocksPool = gameObject.AddComponent<BlocksPool>();
         scoreMgr = gameObject.AddComponent<ScoreMgr>();
+        itemMgr = gameObject.AddComponent<ItemMgr>();
 
     }
 

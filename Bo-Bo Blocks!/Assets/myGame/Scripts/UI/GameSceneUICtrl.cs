@@ -74,6 +74,7 @@ public class GameSceneUICtrl : MonoBehaviour {
     #region ButtonCallBack
     void Left()
     {
+        Debug.Log("aa");
         GameMgr.Instance.eventMaster.CallEventBlockMove(Directions.Left);
     }
     void Right()

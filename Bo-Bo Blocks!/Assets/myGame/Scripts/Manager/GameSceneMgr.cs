@@ -57,10 +57,10 @@ public class GameSceneMgr : MonoBehaviour {
     void CreateBlock()
     {
         GameObject block;
-        int id = Random.Range(2, 3);
+        int id = Random.Range(1, 6);
         block = GameMgr.Instance.blocksPool.GetBlockByName(string.Format("Block0{0}",id));
         //GameObject temp = Instantiate(block, new Vector3(2.5f, 47.5f, -2.5f), Quaternion.identity) as GameObject;
-        GameObject temp = Instantiate(block, new Vector3(5f, 50f, 5f), Quaternion.identity) as GameObject;
+        GameObject temp = Instantiate(block, CheckStartPos(block), Quaternion.identity) as GameObject;
         for (int i = 0; i < temp.transform.childCount; ++i)
         {
             temp.transform.GetChild(i).gameObject.GetComponent<MeshRenderer>().material = myMaterial;
@@ -81,5 +81,16 @@ public class GameSceneMgr : MonoBehaviour {
     void ExitToMenu()
     {
         SceneManager.LoadScene("GameStart");
+    }
+    Vector3 CheckStartPos(GameObject block)
+    {
+        for(int i = 0; i < block.transform.childCount; ++i)
+        {
+            if(block.transform.GetChild(i).localPosition == Vector3.zero)
+            {
+                return new Vector3(2.5f, 47.5f, -2.5f);
+            }
+        }
+        return new Vector3(5f, 50f, 5f);
     }
 }
