@@ -34,7 +34,6 @@ public class UIMgrCtrl: MonoBehaviour {
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene += ChangeStateToGameStart;
         GameMgr.Instance.eventMaster.eventBundleLoaded += ChangeStateToGameStart;
         GameMgr.Instance.eventMaster.eventToggleShopCanvas += ToggleShopPanel;
-
     }
 
     void OnDisable()
@@ -42,7 +41,7 @@ public class UIMgrCtrl: MonoBehaviour {
         GameMgr.Instance.eventMaster.eventGameStart -= ChangeStateToGameScene;
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene -= ChangeStateToGameStart;
         GameMgr.Instance.eventMaster.eventBundleLoaded -= ChangeStateToGameStart;
-        GameMgr.Instance.eventMaster.eventToggleShopCanvas += ToggleShopPanel;
+        GameMgr.Instance.eventMaster.eventToggleShopCanvas -= ToggleShopPanel;
     }
     void ChangeStateToGameScene()
     {
@@ -59,6 +58,7 @@ public class UIMgrCtrl: MonoBehaviour {
     }
     void ToggleShopPanel()
     {
+        //Debug.Log(shopCanvas.activeSelf);
         shopCanvas.SetActive(!shopCanvas.activeSelf);
     }
 }

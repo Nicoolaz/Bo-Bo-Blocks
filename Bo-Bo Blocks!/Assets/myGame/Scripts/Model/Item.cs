@@ -21,7 +21,6 @@ public class Item {
         string[][] table = GameMgr.Instance.csvLoader.csvTableDtata["Item"];
         for(int i = 1; i < table.Length; ++i)
         {
-            Debug.Log(table[i][0]);
             if (int.Parse(table[i][0]) == id)
             {
                 for(int j = 1; j < table[0].Length; ++j)

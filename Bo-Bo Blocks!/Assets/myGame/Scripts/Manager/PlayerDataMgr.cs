@@ -6,6 +6,7 @@ public class PlayerDataMgr : MonoBehaviour {
     public List<Item> myItem { private set; get; }
     public void Awake()
     {
+        PlayerPrefs.SetInt("Coins", 2000);
         InitialReferences();
     }
     void onEnable()
@@ -60,7 +61,7 @@ public class PlayerDataMgr : MonoBehaviour {
         }
         else
         {
-            PlayerPrefs.SetInt("Coins", 0);
+            PlayerPrefs.SetInt("Coins", 2000);
             myCoins = 2000;
         }
         int id = 1001;
@@ -78,8 +79,9 @@ public class PlayerDataMgr : MonoBehaviour {
             else
             {
                 PlayerPrefs.SetInt(temp._name, 0);
-            }
+            }          
             myItem.Add(temp);
+            id++;
         }
        
     }

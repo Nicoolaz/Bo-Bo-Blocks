@@ -40,9 +40,7 @@ public class CSVLoader : MonoBehaviour {
         }
         for(int i = 0; i < tempArray.Length; ++i)
         {
-            Debug.Log(tableData[i][0]);
             tableData[i][0].Replace("\n", "");
-            Debug.Log(tableData[i][0]);
         }
     }
 

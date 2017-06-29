@@ -12,11 +12,6 @@ public class ShopItemCtrl : MonoBehaviour {
     Text itemPrice;
     Item thisItem;
     int curBuyCount;
-    void Awake()
-    {
-        InitialReferences();
-        CheckButton();
-    }
 	
     void InitialReferences()
     {
@@ -35,13 +30,14 @@ public class ShopItemCtrl : MonoBehaviour {
 
     public void CreatItem(int id)
     {
+        InitialReferences();
         thisItem = new Item(id);
         itemName.text = thisItem._name;
         itemPrice.text =string.Format("Price:{0}", thisItem._price);
         curBuyCount = 0;
         buyCount.text = curBuyCount.ToString();
         itemIcon.sprite = thisItem._sprite;
-
+        CheckButton();
     } 
 
     void CheckButton()
@@ -50,10 +46,14 @@ public class ShopItemCtrl : MonoBehaviour {
         if (curBuyCount == 0)
         {
             decrease.interactable = false;
+            buy.interactable = false;
             if (playCoins < thisItem._price)
-            {
-                buy.interactable = false;
+            {                
                 increase.interactable = false;
+            }
+            else
+            {
+                increase.interactable = true;
             }
         }
         else if (playCoins < thisItem._price * (curBuyCount+1))
@@ -86,8 +86,11 @@ public class ShopItemCtrl : MonoBehaviour {
 
     void BuyCallBack()
     {
+        curBuyCount = 0;
         GameMgr.Instance.eventMaster.CallEventPlayerItemChange(thisItem._id, curBuyCount);
         GameMgr.Instance.eventMaster.CallEventPlayerCoinsChange(-curBuyCount * thisItem._price);
+        UpdateBuyCount();
+        CheckButton();
     }
 
     void UpdateBuyCount()
