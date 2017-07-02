@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿  using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 public class ScoreMgr : MonoBehaviour {
-    public Dictionary<string, int> scoreSequence = new Dictionary<string, int>();
+    private Dictionary<string, int> scoreSequence = new Dictionary<string, int>();
     public int curScore { private set; get; }
 
     void Awake()
@@ -35,6 +35,10 @@ public class ScoreMgr : MonoBehaviour {
 
     public void InsertScore()
     {
+        if (GameMgr.Instance.playerMgr.isScoreDouble)
+        {
+            curScore *= 2;
+        }
         if (scoreSequence.Count == 0)
         {
             scoreSequence.Add("1", curScore);
@@ -98,4 +102,16 @@ public class ScoreMgr : MonoBehaviour {
         curScore = 0;
         GameMgr.Instance.eventMaster.CallEventScoreChanged();
     }
+
+    public bool GetScoreByIndex(int index ,out int score)
+    {
+        if (scoreSequence.ContainsKey(index.ToString()))
+        {
+            score = scoreSequence[index.ToString()];
+            return true;
+        }
+        score = 0;
+        return false;
+    }
+
 }

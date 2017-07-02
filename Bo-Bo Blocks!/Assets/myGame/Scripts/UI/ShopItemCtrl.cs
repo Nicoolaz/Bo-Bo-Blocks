@@ -85,10 +85,10 @@ public class ShopItemCtrl : MonoBehaviour {
     }
 
     void BuyCallBack()
-    {
-        curBuyCount = 0;
+    {      
         GameMgr.Instance.eventMaster.CallEventPlayerItemChange(thisItem._id, curBuyCount);
-        GameMgr.Instance.eventMaster.CallEventPlayerCoinsChange(-curBuyCount * thisItem._price);
+        GameMgr.Instance.eventMaster.CallEventPlayerCoinsChange(-(curBuyCount * thisItem._price));
+        curBuyCount = 0;
         UpdateBuyCount();
         CheckButton();
     }

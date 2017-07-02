@@ -10,6 +10,10 @@ public class GameSceneMgr : MonoBehaviour {
             return Inst;
         }
     }
+
+    //private bool isChoseNext = false;
+    public int nextID { private set; get; }
+    private GameObject nextBlock;
     public Material myMaterial;
 
     void Awake()
@@ -24,6 +28,7 @@ public class GameSceneMgr : MonoBehaviour {
         //GameMgr.Instance.eventMaster.eventGameOver += GameOver;
         GameMgr.Instance.eventMaster.eventGameRestart += Restart;
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene += ExitToMenu;
+        GameMgr.Instance.eventMaster.eventChoseNextBlock += ChoseNext;
     }
 
     void OnDisable()
@@ -33,6 +38,7 @@ public class GameSceneMgr : MonoBehaviour {
         //GameMgr.Instance.eventMaster.eventGameOver -= GameOver;
         GameMgr.Instance.eventMaster.eventGameRestart -= Restart;
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene -= ExitToMenu;
+        GameMgr.Instance.eventMaster.eventChoseNextBlock -= ChoseNext;
     }
 
 	void Start () {
@@ -56,11 +62,13 @@ public class GameSceneMgr : MonoBehaviour {
 
     void CreateBlock()
     {
-        GameObject block;
-        int id = Random.Range(1, 6);
-        block = GameMgr.Instance.blocksPool.GetBlockByName(string.Format("Block0{0}",id));
+        if (nextBlock==null)
+        {
+            int id = Random.Range(1, 6);
+            nextBlock = GameMgr.Instance.blocksPool.GetBlockByName(string.Format("Block0{0}", id));
+        }
         //GameObject temp = Instantiate(block, new Vector3(2.5f, 47.5f, -2.5f), Quaternion.identity) as GameObject;
-        GameObject temp = Instantiate(block, CheckStartPos(block), Quaternion.identity) as GameObject;
+        GameObject temp = Instantiate(nextBlock, CheckStartPos(nextBlock), Quaternion.identity) as GameObject;
         for (int i = 0; i < temp.transform.childCount; ++i)
         {
             temp.transform.GetChild(i).gameObject.GetComponent<MeshRenderer>().material = myMaterial;
@@ -69,7 +77,15 @@ public class GameSceneMgr : MonoBehaviour {
         {
             GameMgr.Instance.eventMaster.CallEventGameOver();
         }
-
+        nextID = Random.Range(1, 6);
+        nextBlock = GameMgr.Instance.blocksPool.GetBlockByName(string.Format("Block0{0}", nextID));
+        GameMgr.Instance.eventMaster.CallEventNextBlockChanged();
+    }
+    void ChoseNext(int id)
+    {
+        nextID = id;
+        nextBlock = GameMgr.Instance.blocksPool.GetBlockByName(string.Format("Block0{0}", id));
+        GameMgr.Instance.eventMaster.CallEventNextBlockChanged();
     }
 
 

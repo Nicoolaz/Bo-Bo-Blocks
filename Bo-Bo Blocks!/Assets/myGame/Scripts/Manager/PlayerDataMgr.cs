@@ -1,30 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class PlayerDataMgr : MonoBehaviour {
+public class PlayerDataMgr : MonoBehaviour
+{
+    public bool isScoreDouble
+    {
+        private set; get;
+    }
+
+    public bool isCoinsDouble { private set; get; }
+
+    public bool isChoseNextBlock { private set; get; }
+
+    public int nextBlock { private set; get; }
+
     public int myCoins { private set; get; }
+
     public List<Item> myItem { private set; get; }
+
     public void Awake()
     {
         PlayerPrefs.SetInt("Coins", 2000);
         InitialReferences();
     }
-    void onEnable()
+
+    void OnEnable()
     {
         GameMgr.Instance.eventMaster.eventPlayerCoinsChange += ChangeCoin;
         GameMgr.Instance.eventMaster.eventPlayerItemChange += ChangeItem;
+        GameMgr.Instance.eventMaster.eventPlayerUseItem += ItemUsed;
+        GameMgr.Instance.eventMaster.eventChoseNextBlock += delegate (int id) { ChoseBlockItemUsed(); };
+        GameMgr.Instance.eventMaster.eventGameStart += RefreshFlag;
+        GameMgr.Instance.eventMaster.eventGameRestart += RefreshFlag;
     }
+
     void OnDisable()
     {
         GameMgr.Instance.eventMaster.eventPlayerCoinsChange -= ChangeCoin;
         GameMgr.Instance.eventMaster.eventPlayerItemChange -= ChangeItem;
+        GameMgr.Instance.eventMaster.eventPlayerUseItem -= ItemUsed;
+        GameMgr.Instance.eventMaster.eventChoseNextBlock -= delegate (int id) { ChoseBlockItemUsed(); };
+        GameMgr.Instance.eventMaster.eventGameStart -= RefreshFlag;
+        GameMgr.Instance.eventMaster.eventGameRestart -= RefreshFlag;
     }
-	
-    void ChangeItem(int id,int num)
+
+    void ChangeItem(int id, int num)
     {
-        for(int i = 0; i < myItem.Count; ++i)
+        Debug.Log("Change Item");
+        for (int i = 0; i < myItem.Count; ++i)
         {
-            if(myItem[i]._id == id)
+            if (myItem[i]._id == id)
             {
                 myItem[i]._count += num;
                 if (myItem[i]._count <= 0)
@@ -32,7 +57,7 @@ public class PlayerDataMgr : MonoBehaviour {
                     myItem[i]._count -= num;
                     print("You don't have enough item to use!");
                 }
-           }
+            }
         }
         GameMgr.Instance.eventMaster.CallEventPlayerDataChanged();
     }
@@ -40,7 +65,7 @@ public class PlayerDataMgr : MonoBehaviour {
     void ChangeCoin(int value)
     {
         myCoins += value;
-        if(myCoins >= 1000000)
+        if (myCoins >= 1000000)
         {
             myCoins = 999999;
         }
@@ -55,7 +80,7 @@ public class PlayerDataMgr : MonoBehaviour {
     void InitialReferences()
     {
         myItem = new List<Item>();
-        if (PlayerPrefs.HasKey("Coins") )
+        if (PlayerPrefs.HasKey("Coins"))
         {
             myCoins = PlayerPrefs.GetInt("Coins");
         }
@@ -68,7 +93,7 @@ public class PlayerDataMgr : MonoBehaviour {
         while (true)
         {
             Item temp = new Item(id);
-            if(temp._name == null)
+            if (temp._name == null)
             {
                 break;
             }
@@ -79,13 +104,83 @@ public class PlayerDataMgr : MonoBehaviour {
             else
             {
                 PlayerPrefs.SetInt(temp._name, 0);
-            }          
+            }
             myItem.Add(temp);
             id++;
         }
-       
+
     }
 
-    
+    void ItemUsed(int id)
+    {
+        for (int i = 0; i < myItem.Count; ++i)
+        {
+            if (myItem[i]._id == id)
+            {
+                switch (myItem[i]._func)
+                {
+                    case Function.choseBlock:
+                        {
+                            GameMgr.Instance.eventMaster.CallEventToggleChoseBlockPanel();
+                            break;
+                        }
+                    case Function.coinTwice:
+                        {
+                            if (isCoinsDouble)
+                            {
+                                return;
+                            }
+                            isCoinsDouble = true;
+                            myItem[i]._count -= 1;
+                            break;
+                        }
+                    case Function.scoreTwice:
+                        {
+                            if (isScoreDouble)
+                            {
+                                return;
+                            }
+                            isScoreDouble = true;
+                            myItem[i]._count -= 1;
+                            break;
+                        }
+                }
 
+            }
+        }
+        GameMgr.Instance.eventMaster.CallEventPlayerDataChanged();
+    }
+
+    void Save()
+    {
+        PlayerPrefs.SetInt("Coins", myCoins);
+        for (int i = 0; i < myItem.Count; ++i)
+        {
+            PlayerPrefs.SetInt(myItem[i]._name, myItem[i]._count);
+        }
+
+    }
+
+    void ChoseBlockItemUsed()
+    {
+        for (int i = 0; i < myItem.Count; ++i)
+        {
+            if(myItem[i]._func == Function.choseBlock)
+            {
+                myItem[i]._count -= 1;
+            }
+        }
+        GameMgr.Instance.eventMaster.CallEventPlayerDataChanged();
+    }
+
+    public void OnApplicationQuit()
+    {
+        Save();
+    }
+
+    void RefreshFlag()
+    {
+        isScoreDouble = false;
+        isCoinsDouble = false;
+    }
 }

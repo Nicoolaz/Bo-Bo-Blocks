@@ -4,6 +4,7 @@ using System.Collections;
 public class UIMgrCtrl: MonoBehaviour {
     UIStateMachine uiStateMachine;
     GameObject shopCanvas;
+    GameObject RankCanvas;
     void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("UICtrl").Length > 1)
@@ -13,6 +14,7 @@ public class UIMgrCtrl: MonoBehaviour {
         else
         {
             shopCanvas = transform.Find("ShopCanvas").gameObject;
+            RankCanvas = transform.Find("RankCanvas").gameObject;
             uiStateMachine = new UIStateMachine();
             GameStartState gameStartState = new GameStartState(transform);
             uiStateMachine.AddState(gameStartState);
@@ -34,6 +36,7 @@ public class UIMgrCtrl: MonoBehaviour {
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene += ChangeStateToGameStart;
         GameMgr.Instance.eventMaster.eventBundleLoaded += ChangeStateToGameStart;
         GameMgr.Instance.eventMaster.eventToggleShopCanvas += ToggleShopPanel;
+        GameMgr.Instance.eventMaster.eventToggleRankCanvas += ToggleRankCanvas;
     }
 
     void OnDisable()
@@ -42,6 +45,7 @@ public class UIMgrCtrl: MonoBehaviour {
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene -= ChangeStateToGameStart;
         GameMgr.Instance.eventMaster.eventBundleLoaded -= ChangeStateToGameStart;
         GameMgr.Instance.eventMaster.eventToggleShopCanvas -= ToggleShopPanel;
+        GameMgr.Instance.eventMaster.eventToggleRankCanvas -= ToggleRankCanvas;
     }
     void ChangeStateToGameScene()
     {
@@ -60,5 +64,9 @@ public class UIMgrCtrl: MonoBehaviour {
     {
         //Debug.Log(shopCanvas.activeSelf);
         shopCanvas.SetActive(!shopCanvas.activeSelf);
+    }
+    void ToggleRankCanvas()
+    {
+        RankCanvas.SetActive(!RankCanvas.activeSelf);
     }
 }

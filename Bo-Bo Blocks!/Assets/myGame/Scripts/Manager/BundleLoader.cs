@@ -21,10 +21,12 @@ public class BundleLoader : MonoBehaviour
         #elif UNITY_IPHONE
              Application.dataPath + "/Raw/";  
         #elif UNITY_STANDALONE_WIN || UNITY_EDITOR
-             "file://" + Application.streamingAssetsPath+"/";  
-        #else
+             "file://" + Application.streamingAssetsPath+"/";
+#else
              string.Empty;  
-        #endif
+#endif
+        //print(win_streamingAssetPath);
+       // print(Application.persistentDataPath);
 
     }
 
@@ -58,7 +60,6 @@ public class BundleLoader : MonoBehaviour
             _AbStr.Add(amList.GetAllAssetBundles()[i]);
 
             _DependenciesStr = amList.GetAllDependencies(amList.GetAllAssetBundles()[i]).ToList();
-
             if (_DependenciesStr.Count > 0)
             {
                 for (int j = 0; j < _DependenciesStr.Count; ++j)
@@ -103,9 +104,9 @@ public class BundleLoader : MonoBehaviour
             else
             {
                 string path = string.Format("{0}{1}", win_streamingAssetPath, _AbStr[i]);
-                WWW temp = WWW.LoadFromCacheOrDownload(path, 0);
-                yield return temp;
-                AssetBundle _ab = temp.assetBundle;
+                temp_ab = WWW.LoadFromCacheOrDownload(path, 0);
+                yield return temp_ab;
+                AssetBundle _ab = temp_ab.assetBundle;
                 if (_ab != null)
                 {
                     _allAbs.Add(_AbStr[i], _ab);
@@ -115,7 +116,7 @@ public class BundleLoader : MonoBehaviour
         }
         
         _isAllFull = true;
-        GameMgr.Instance.eventMaster.CallEventBundleLoaded();
+        
 
     }
 

@@ -31,6 +31,8 @@ public class GameMgr : MonoBehaviour {
     public BlocksPool blocksPool { private set; get; }
     public PlayerDataMgr playerMgr { private set; get; }
     public CSVLoader csvLoader{ private set;get; }
+    float timeToClear = 3f;
+    float timer;
 
     public bool isGameOver = false;
 
@@ -71,7 +73,15 @@ public class GameMgr : MonoBehaviour {
         }
     }
 
-    
+    void Update()
+    {
+        timer += Time.deltaTime;
+        if (timer >= timeToClear)
+        {
+            System.GC.Collect();
+            timer = 0;
+        }
+    }
 
     private void InitialReferences()
     {

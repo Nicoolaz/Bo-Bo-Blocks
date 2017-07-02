@@ -6,6 +6,7 @@ public class EventMaster : MonoBehaviour {
 
     #region Events
     public delegate void ActionEventHandle();
+
     public event ActionEventHandle eventBundleLoaded;
 
     public event ActionEventHandle eventDeleteStones;
@@ -32,6 +33,12 @@ public class EventMaster : MonoBehaviour {
 
     public event ActionEventHandle eventToggleShopCanvas;
 
+    public event ActionEventHandle eventToggleChoseBlockPanel;
+
+    public event ActionEventHandle eventNextBlockChanged;
+
+    public event ActionEventHandle eventToggleRankCanvas;
+
     public delegate void BlockMoveEventHandle(Directions dir);
     public event BlockMoveEventHandle eventBlockMove;
 
@@ -44,9 +51,48 @@ public class EventMaster : MonoBehaviour {
     public delegate void PlayerCoinsChangeEventHandle(int num);
     public event PlayerCoinsChangeEventHandle eventPlayerCoinsChange;
 
+    public delegate void PlayerUseItemEventHandle(int id);
+    public event PlayerUseItemEventHandle eventPlayerUseItem;
+
+    public delegate void ChoseNextBlockEventHandle(int id);
+    public event ChoseNextBlockEventHandle eventChoseNextBlock;
+
+
     #endregion
 
     #region CallEventsFunction
+
+    public void CallEventToggleRankCanvas()
+    {
+        if (eventToggleRankCanvas != null)
+        {
+            eventToggleRankCanvas();
+        }
+    }
+
+    public void CallEventNextBlockChanged()
+    {
+        if (eventNextBlockChanged != null)
+        {
+            eventNextBlockChanged();
+        }
+    }
+
+    public void CallEventChoseNextBlock(int id)
+    {
+        if (eventChoseNextBlock != null)
+        {
+            eventChoseNextBlock(id);
+        }
+    }
+
+    public void CallEventToggleChoseBlockPanel()
+    {
+        if (eventToggleChoseBlockPanel != null)
+        {
+            eventToggleChoseBlockPanel();
+        }
+    }
 
     public void CallEventToggleShopCanvas()
     {
@@ -181,6 +227,14 @@ public class EventMaster : MonoBehaviour {
         if (eventPlayerDataChanged != null)
         {
             eventPlayerDataChanged();
+        }
+    }
+
+    public void CallEventPlayerUseItem(int id)
+    {
+        if (eventPlayerUseItem != null)
+        {
+            eventPlayerUseItem(id);
         }
     }
     #endregion

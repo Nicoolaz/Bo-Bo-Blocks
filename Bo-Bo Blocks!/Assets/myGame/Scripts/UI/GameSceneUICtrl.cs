@@ -15,6 +15,9 @@ public class GameSceneUICtrl : MonoBehaviour {
     private Transform gameOverPanel;
     private Transform gamePausePanel;
     private Button pause;
+    private GameObject ScoreDouble;
+
+    GameObject ChoseBlockPanel;
 
     void Awake () {
         InitialReferences();
@@ -26,24 +29,30 @@ public class GameSceneUICtrl : MonoBehaviour {
 
         //Debug.Log(GameMgr.Instance);
         GameMgr.Instance.eventMaster.eventScoreChanged += UpdateScore;
+        GameMgr.Instance.eventMaster.eventPlayerDataChanged += UpdateScore;
         GameMgr.Instance.eventMaster.eventGameOver += ToggleGameOverPanel;
         GameMgr.Instance.eventMaster.eventGameRestart += ToggleGamePausePanel;
         GameMgr.Instance.eventMaster.eventGameRestart += ToggleGameOverPanel;
         GameMgr.Instance.eventMaster.eventGamePause += ToggleGamePausePanel;
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene += ToggleGamePausePanel;
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene += ToggleGameOverPanel;
+        GameMgr.Instance.eventMaster.eventToggleChoseBlockPanel += ToggleChoseBlockPanel;
+        GameMgr.Instance.eventMaster.eventChoseNextBlock +=delegate(int id) { ToggleChoseBlockPanel(); };
         
     }
     void OnDisable()
     {
         GameMgr.Instance.eventMaster.eventScoreChanged -= UpdateScore;
+        GameMgr.Instance.eventMaster.eventPlayerDataChanged -= UpdateScore;
         GameMgr.Instance.eventMaster.eventGameOver -= ToggleGameOverPanel;
         GameMgr.Instance.eventMaster.eventGameRestart -= ToggleGamePausePanel;
         GameMgr.Instance.eventMaster.eventGameRestart -= ToggleGameOverPanel;
         GameMgr.Instance.eventMaster.eventGamePause -= ToggleGamePausePanel;
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene -= ToggleGamePausePanel;
         GameMgr.Instance.eventMaster.eventChangeToGameStartScene -= ToggleGameOverPanel;
-        
+        GameMgr.Instance.eventMaster.eventToggleChoseBlockPanel -= ToggleChoseBlockPanel;
+        GameMgr.Instance.eventMaster.eventChoseNextBlock -= delegate (int id) { ToggleChoseBlockPanel(); };
+
     }
 	
     void InitialReferences()
@@ -60,6 +69,8 @@ public class GameSceneUICtrl : MonoBehaviour {
         gameOverPanel = transform.Find("GameOver");
         pause = transform.Find("Pause").GetComponent<Button>();
         gamePausePanel = transform.Find("Menu");
+        ChoseBlockPanel = transform.Find("ChoseBlockPanel").gameObject;
+        ScoreDouble = transform.Find("ScorePanel/Double").gameObject;
         
         forward.onClick.AddListener(Forward);
         back.onClick.AddListener(Back);
@@ -115,11 +126,18 @@ public class GameSceneUICtrl : MonoBehaviour {
 
     void UpdateScore()
     {
+        if (GameMgr.Instance.playerMgr.isScoreDouble)
+        {
+            ScoreDouble.SetActive(true);
+        }
+        else
+        {
+            ScoreDouble.SetActive(false);
+        }
         scoreShow.text = GameMgr.Instance.scoreMgr.curScore.ToString();
     }
     void ToggleGameOverPanel()
     {
-        Debug.Log(GameMgr.Instance.isGameOver);
         if (!gamePausePanel.gameObject.activeSelf&&GameMgr.Instance.isGameOver)
         {
             gameOverPanel.gameObject.SetActive(!gameOverPanel.gameObject.activeSelf);
@@ -138,6 +156,19 @@ public class GameSceneUICtrl : MonoBehaviour {
             {
                 Time.timeScale = 0;
             }
+        }
+    }
+
+    void ToggleChoseBlockPanel()
+    {
+        ChoseBlockPanel.SetActive(!ChoseBlockPanel.activeSelf);
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
+        else
+        {
+            Time.timeScale = 0;
         }
     }
 }

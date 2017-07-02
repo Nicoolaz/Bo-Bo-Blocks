@@ -182,19 +182,26 @@ public class GridMgr : MonoBehaviour {
         }
         MoveStonesAfterDelete();
     }
-
+    int moveCount =0;
+    bool moving = false;
     void MoveStonesAfterDelete()
     {
-
         //allStones = GameObject.FindGameObjectsWithTag("stone");
-        //Debug.Log(allStones.Length);
-        
+        Debug.Log(stonesDic.Values.Count);
+        GameObject[] goArray = new GameObject[stonesDic.Values.Count];
+        int i = 0;
         foreach(GameObject go in stonesDic.Values)
         {
-            int moveCount = 0;
-            for(int j = 0; j < layersForDelete.Count; ++j)
+            goArray[i] = go;
+            i++;
+        }
+        stonesDic = new Dictionary<Vector3, GameObject>();
+        for (int j = 0; j < goArray.Length; ++j)
+        {
+            moveCount = 0;
+            for (int k = 0; k < layersForDelete.Count; ++k)
             {
-                if (GetCellWithPos(go.transform.position).y > layersForDelete[j])
+                if (GetCellWithPos(goArray[j].transform.position).y > layersForDelete[k])
                 {
                     moveCount++;
                 }
@@ -202,12 +209,10 @@ public class GridMgr : MonoBehaviour {
             Debug.Log(moveCount);
             if (moveCount > 0)
             {
-                GameObject temp = go;
-                stonesDic.Remove(go.transform.position);             
-                Vector3 pos = temp.transform.position;
-                pos.y -= 5 * moveCount;
-                temp.transform.position = pos;
-                stonesDic.Add(go.transform.position, temp);
+                moving = true;
+                stonesDic.Remove(goArray[j].transform.position);
+                goArray[j].transform.position += Vector3.down * (moveCount * 5f);
+                stonesDic.Add(goArray[j].transform.position, goArray[j]);
             }
         }
         //Debug.Log("aa1");
@@ -265,5 +270,8 @@ public class GridMgr : MonoBehaviour {
         stonesDic.Clear();
         UpdateDictionary();
     }
-
+    void OnGUI()
+    {
+        GUI.TextArea(new Rect(10,10,300,300),string.Format("{0}   {1}    {2}",moveCount,moving, stonesDic.Values.Count));
+    }
 }
