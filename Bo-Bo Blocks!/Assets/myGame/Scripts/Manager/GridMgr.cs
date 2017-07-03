@@ -270,8 +270,5 @@ public class GridMgr : MonoBehaviour {
         stonesDic.Clear();
         UpdateDictionary();
     }
-    void OnGUI()
-    {
-        GUI.TextArea(new Rect(10,10,300,300),string.Format("{0}   {1}    {2}",moveCount,moving, stonesDic.Values.Count));
-    }
+    
 }
